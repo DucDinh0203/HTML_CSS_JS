@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+        
+    />
+    <title>American Honda Motor Co., Inc. - Official Site</title>
+    
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+        crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/style.css"/>
+
+</head>
+<body>
+    <header>
+        <div class="header-wrapper">
+            <!-- horizontal menu navigation -->
+            <div class="menuContainer">
+                <nav class="navbar-menu">
+                  <div class="navbar-left">
+                    <!-- <i class="fa-solid fa-bars"></i> -->
+                    <button class="btn" type="button" data-bs-theme="dark">
+                        <i class="fa-solid fa-bars navbar-toggle-icon"></i>
+                        <span class="menu-title">MENU</span>
+                    </button>
+                    <!-- <span class="menu-title">MENU</span> -->
+                  </div>
+                  <div class="navbar-center">
+                <a href="#">
+                    <img src="./images/global-logo.svg" alt="Logo"/>
+                </a>
+                  </div>
+                  <div class="navbar-right">
+                    <a class="about" href="https://www.honda.com/about">
+                        <span class="about-us">About Us</span>
+                    </a>
+                    <span>
+                        <a class="search-button" data-bs-toggle="collapse" href="#searchBar" role="button" aria-expanded="false" aria-controls="searchBar">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        </a>
+                    </span>
+                    <div class="collapse" id="searchBar">
+                      <form class="search-form" method="get" autocomplete="off" action="search">
+                        <span class="searchInput-span">
+                          <input class="search-input" type="type" id="search" placeholder="Type here..." >
+                        </span>
+                        <button class="search-btn" type="submit">
+                          SEARCH 
+                          <i class="fa-solid fa-greater-than"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </nav>
+            </div>
+            
+            <aside class="sidebar-container collapsed" id="sidebar">
+                <div class="h-100">
+                    <!-- sidebar navigation -->
+                    <ul class="sidebar-nav">
+                        <!-- Home -->
+                        <li class="sidebar-menu-title">
+                            <a class="sidebar-link-title" href="#">
+                                <i class="fa-solid fa-house"></i>
+                                <span class="sidebar-link-text">HOME</span>
+                            </a>
+                        </li>
+                        <!-- Our brands -->
+                        <li class="sidebar-menu-title">
+                            <a href="#" class="sidebar-link-title collapsed" data-bs-toggle="collapse" data-bs-target="#ourBrand" aria-expanded="false" aria-controls="ourBrand">
+                                <i class="fa-solid fa-minus"></i> 
+                                <i class="fa-solid fa-minus fa-rotate-90"></i>
+                                <span class="sidebar-link-text">OUR BRANDS</span>
+                            </a>
+                            <ul id="ourBrand" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Honda Autos</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Acura Autos</a>
+                                </li> 
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Honda Powersports</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Honda Power Equipment</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Honda Engines</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Honda Marine</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">HondaJet</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">ASIMO</a>
+                                </li>
+                            </ul>
+                        </li>
+    
+                        <!-- About Us -->
+                        <li class="sidebar-menu-title">
+                            <a href="#" class="sidebar-link-title collapsed" data-bs-toggle="collapse" data-bs-target="#about" aria-expanded="false" aria-controls="about">
+                                <i class="fa-solid fa-minus"></i> 
+                                <i class="fa-solid fa-minus fa-rotate-90"></i>
+                                <span class="sidebar-link-text">ABOUT US</span>
+                            </a>
+                            <ul id="about" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">The Power of Dreams</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Mobility</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Environment</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Community</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Safety</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">History</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Operation</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">Careers</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Racing -->
+                        <li class="sidebar-menu-title">
+                            <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link-title collapsed" data-bs-toggle="collapse" data-bs-target="#racing" aria-expanded="false" aria-controls="racing">
+                                <i class="fa-solid fa-minus"></i> 
+                                <i class="fa-solid fa-minus fa-rotate-90"></i>
+                                <span class="sidebar-link-text">RACING</span>
+                            </a>
+                            <ul id="racing" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Auto Racing</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Motorcycle Racing</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Recalls -->
+                        <li class="sidebar-menu-title">
+                            <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link-title collapsed" data-bs-toggle="collapse" data-bs-target="#recalls" aria-expanded="false" aria-controls="recalls">
+                            <i class="fa-solid fa-minus"></i> 
+                            <i class="fa-solid fa-minus fa-rotate-90"></i>
+                            <span class="sidebar-link-text">RECALLS</span>
+                            </a>
+                        <ul id="recalls" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Honda Recalls</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Acura Recalls</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Powersports Recalls</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Power Equipement Recalls</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Marine Recalls</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Engines Recalls</a>
+                            </li>
+                        </ul>
+                        </li>
+
+                        <!-- SERVICES -->
+                        <li class="sidebar-menu-title">
+                            <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link-title collapsed" data-bs-toggle="collapse" data-bs-target="#services" aria-expanded="false" aria-controls="services">
+                                <i class="fa-solid fa-minus"></i> 
+                                <i class="fa-solid fa-minus fa-rotate-90"></i>
+                                <span class="sidebar-link-text">SERVICES</span>
+                            </a>
+                            <ul id="services" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Honda Financial Services</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Honda Owners</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Acura Financial Services</a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="http://127.0.0.1:5500/index.html#" class="sidebar-link">Acura Owners</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </header>
+    <section class="carousel">
+      <main class="carousel-main">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./images/carousel/Honda_Homepage_Hero_Wall_of_Dreams_Desktop_1600x650px.avif" 
+                    class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/carousel/Honda_Homepage_Hero_2024Prologue_Desktop_1600x650px.avif" 
+                    class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/carousel/Honda_Homepage_Hero_Motocompacto_Desktop_1600x650px_v2.avif" 
+                    class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./images/carousel/Honda_Homepage_Hero_ZDX_Desktop_1600x650px.avif" 
+                    class="d-block w-100" alt="...">
+              </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="btn active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="btn" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="btn" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" class="btn" aria-label="Slide 4"></button>
+            </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- <section class="classify">
+        <main class="classify-main">
+          <div class="classify-container">
+            <div class="list">
+              <div class="item ">
+                <a href="https://automobiles.honda.com/" target="_blank">
+                  <div class="honda-auto">
+                    <img src="./images/logo/logo_honda_autos.webp"/>
+                    <p>Honda Autos</p>
+                    <span> GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item picture car">
+                <a href="https://automobiles.honda.com/" target="_blank">
+                  <img src="./images/hinh10.webp"/>
+                </a>
+              </div>
+    
+              <div class="item">
+                <a href="https://powersports.honda.com/" target="_blank">
+                  <div class="motorcycles">
+                    <img src="./images/logo/logo_honda_powersports.webp"/>
+                    <p>Motorcycles, ATVs, Scooter, SxS</p>
+                    <span> GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item picture motor ">
+                <a href="https://powersports.honda.com/" target="_blank">
+                  <img src="./images/hinh15.jpg"/>
+                </a>
+              </div>
+    
+              <div class="item ">
+                <a href="https://powerequipment.honda.com/" target="_blank">
+                  <div class="generators">
+                    <img src="./images/logo/logo_honda_corporate_red.webp"/>
+                    <p>Generators, Mowers & Power Equipment</p>
+                    <span>GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item picture acura ">
+                <a href="https://www.acura.com/" target="_blank">
+                  <img src="./images/hinh8.webp"/>
+                </a>
+              </div>
+    
+              <div class="item">
+                <a href="https://www.acura.com/" target="_blank">
+                  <div class="acura">
+                    <img src="./images/logo/logo_acura.webp"/>
+                    <p>Acura Autos</p>
+                    <span>GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item picture ">
+                <a href="https://powerequipment.honda.com/" target="_blank">
+                  <img src="./images/hinh14.jpg"/>
+                </a>
+              </div>
+    
+              <div class="item ">
+                <a href="https://www.hondajet.com/" target="_blank">
+                  <div class="hondajet">
+                    <img src="./images/logo/logo_honda_jet.webp"/>
+                    <p>Honda Aircraft Company</p>
+                    <span>GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item picture jet">
+                <a href="https://www.hondajet.com/" target="_blank">
+                    <img src="./images/hinh12.jpg"/>
+                </a>
+              </div>
+    
+              <div class="item picture racing">
+                <a href="https://hpd.honda.com/" target="_blank">
+                  <img src="./images/hinh9.jpg"/>
+                </a>
+              </div>
+    
+              <div class="item ">
+                <a href="https://engines.honda.com/" target="_blank">
+                  <div class="engine">
+                    <img src="./images/logo/logo_honda_corporate_white.webp"/>
+                    <p>General Purpose Engines</p>
+                    <span>GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item picture ">
+                <a href="https://engines.honda.com/" target="_blank">
+                  <img src="./images/hinh11.jpg"/>
+                </a>
+              </div>
+    
+              <div class="item picture marine">
+                <a href="https://marine.honda.com/" target="_blank">
+                  <img src="./images/hinh13.webp"/>
+                </a>
+              </div>
+    
+              <div class="item ">
+                <a href="https://marine.honda.com/" target="_blank">
+                  <div class="marine">
+                    <img src="./images/logo/logo_honda_marine.png"/>
+                    <p>Outboard Motors</p>
+                    <span>GO</span>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="item ">
+                <a href="https://hpd.honda.com/" target="_blank">
+                  <div class="racing">
+                    <img src="./images/logo/logo_honda_racing.webp"/>
+                    <p>Auto Racing</p>
+                    <span>GO</span>
+                    <i class="fa fa-angle-right"></i>
+                  </div>
+                </a>
+              </div>
+    
+            </div>
+          </div>
+        </main>
+    </section> -->
+    <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+    crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

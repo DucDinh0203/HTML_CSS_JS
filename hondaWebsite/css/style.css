@@ -1,0 +1,346 @@
+* { 
+    margin:0;
+    padding: 0;
+    font-family: AvenirNext-Medium,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+.menuContainer{
+    display: flex;
+    flex-direction: column;
+    /* min-height: 100vh; */
+    /* height: 60px; */
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+}
+
+.navbar-menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #e5e5e5;
+    opacity: 1;
+    /* z-index: 1000; */
+    position: fixed;
+} 
+
+.navbar-left {
+    padding-left: 25px;
+    position: fixed;
+}
+
+.navbar-left .fa-bars {
+    font-size: 24px;
+    padding-top: 5px;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    color: #000000;
+    cursor: pointer;
+}
+
+.navbar-left .btn{
+    padding: 0;
+    cursor: pointer;
+}
+
+.navbar-left .navbar-toggler-icon{
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-color: #000000;
+    cursor: pointer;
+}
+
+.navbar-left  .menu-title{
+    position: absolute;
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 33px;
+    top: 2px;
+    color: #000000;
+} 
+
+.navbar-center{
+    text-align: center;
+    width: 100%;
+}
+
+.navbar-center a{
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    margin: 0px auto;
+    text-decoration: none !important;
+}
+
+.navbar-center img{
+    width: 164px;
+    height: 35px;
+}
+
+.navbar-right{
+    padding: 16px 20px 0px 0px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.navbar-right .about{
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.navbar-right .about-us{
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+    margin-right: 90px;
+}
+
+.navbar-right .search-icon{
+    cursor: pointer;
+    font-size: 25px;
+    position: absolute;
+    right: 40px;
+    color: #000000;
+}
+
+/* css for search bar collapse*/
+.navbar-right .collapse{
+    position: fixed;
+    width: 100%;
+    height: 72px;
+    background-color: #eeeeee !important;
+    /* z-index: 3000; */
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    margin-top: 60px !important;
+}
+
+.navbar-right .collapsing{
+    position: fixed;
+    width: 100%;
+    transition: height 0.35s ease-in;
+    top: 60;
+    left: 0;
+    background-color: #eeeeee !important;
+    opacity: 0;
+}
+
+.navbar-right .collapse .search-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    
+}
+
+.navbar-right .collapse .searchInput-span{
+    display: block;
+    padding-right: 10px;
+}
+
+.navbar-right .collapse .search-input{
+    width: 100%;
+    padding-left: 20px;
+    background: #eeeeee;
+    border: none;
+    font-size: 20px !important;
+
+}
+
+.navbar-right .collapse .search-form .search-btn{
+    font-size: 13px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: .05em;
+    border: none;
+    outline: 0;
+    background: #eeeeee;
+    color: #000000;
+    margin-top: 5px;
+    padding: 0px 40px 0px 0px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-right .collapse .search-form .fa-greater-than{
+    display: block;
+    padding: 0px 0px 3px 3px;
+}
+
+.header-wrapper{
+    /* align-items: stretch; */
+    display: flex;
+    /* flex-direction: row; */
+    width: 100%;
+    background-color: #ffffff;
+}
+
+/* sidebar navigation */
+.sidebar-container{
+    position: fixed !important;
+    top: 60px;
+    left: 0px;
+    height: 100%;
+}
+
+.sidebar-container a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sidebar-container li{
+    list-style: none;
+}
+
+
+#sidebar {
+    max-width: 320px;
+    min-width: 320px;
+    transition: all 0.35s ease-in-out;
+    background-color: #ffffff;
+    /* z-index: 1111; */
+}
+
+/* Sidebar collapse */
+#sidebar.collapsed {
+    margin-left: -320px;
+}
+
+.sidebar-container .sidebar-nav{
+    margin: 0px;
+    padding: 0px;
+}
+
+.sidebar-container .sidebar-menu-title {
+    border-top: #b2b2b2 1px solid;
+}
+
+.sidebar-container .sidebar-menu-title a:hover{
+    background-color: #eeeeee;
+}
+
+.sidebar-link-title{
+    display: block;
+    cursor: pointer;
+    padding: 20px 0px 20px 32px;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sidebar-link-text{
+    padding-left: 10px;
+}
+
+.sidebar-link{
+    outline: 0;
+    display: block;
+    cursor: pointer;
+    padding: 11px 0px 11px 57px;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.carousel{
+    /* position: absolute; */
+    width: 100%;
+}
+
+.carousel-main{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    color: red;
+    background: rgba(0, 0, 0, 0.2);
+    width: 35px;    
+    margin: 250px 0;
+}
+
+.carousel-indicators{
+    position: static;
+    margin: 0;
+    padding: 15px;
+    background-color: #e1e1e1;
+    /* z-index: 100; */
+}
+
+/* .classify{
+    position: relative;
+    width: 100%;
+}
+
+.classify .classify-main{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 810px;
+}
+
+.classify-main .classify-container .list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.classify-container .list .car{
+    grid-column: 2/4;
+    grid-row: 1/3;
+}
+
+.classify-container .list .motor{
+    grid-column: 5/7;
+
+}
+
+.classify-container .list .acura{
+    grid-column: 4/6;
+}
+
+.classify-container .list .jet{
+    grid-column: 3/5;
+}
+
+.classify-container .list .racing{
+    grid-column: 5/7;
+
+}
+
+.classify-container .list .marine{
+    grid-column: 3/5;
+}
+
+.classify-container .list{
+    display:  grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.classify-container .list .item {
+    position: relative;
+}
+
+.classify-container .list .picture img{
+    width: 100%;
+    height: 100%;
+    display: block;
+} */
