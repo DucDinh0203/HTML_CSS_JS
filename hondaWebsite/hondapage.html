@@ -43,13 +43,26 @@
                             </a>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-search">
+                            <button type="button" class="btn btn-search" data-bs-toggle="collapse" href="#searchBar" role="button" aria-expanded="false" aria-controls="searchBar">
                                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                             </button>
                         </li>
                         <!-- <div class="search-bar collapse"></div> -->
                     </ul>
                 </ul>
+                <div class="search-bar collapse" id="searchBar">
+                    <form class="search-form" method="get" autocomplete="off" action="search">
+                        <span class="searchInput-span">
+                            <input class="search-input" type="type" id="search" placeholder="Type here...">
+                        </span>
+                        <button class="search-btn" type="submit">
+                            <span class="search-btn-span">
+                                SEARCH
+                                <i class="fa-solid fa-greater-than"></i>
+                            </span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </main>
     </header>
