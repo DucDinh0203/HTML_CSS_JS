@@ -27,6 +27,10 @@ ul, li{
     padding: 6px 20px;
 }
 
+.btn-menu:hover{
+    color: #333333;
+}
+
 .fa-bars{
     font-size: 24px;
     padding-top: 5px;
@@ -116,4 +120,11 @@ ul, li{
 
 .collapsing{
     transition: height 0.35s ease-in;
+}
+
+.carousel-indicators{
+    background-color: red;
+    position: static;
+    align-items: center;
+    margin: 10px 40px 10px 40px; 
 }

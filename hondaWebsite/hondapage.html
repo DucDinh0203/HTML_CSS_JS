@@ -1,75 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
-        
-    />
-    <title>American Honda Motor Co., Inc. - Official Site</title>
-    
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
-        crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./css/hondaStyle.css"/>
-</head>
-<body>
-    <header>
-        <main class="header-container">
-            <div class="menu-container">
-                <ul class="navbar-container">
-                    <li class="navbar-left">
-                        
-                        <button type="button" class="btn btn-menu">
-                            <i class="fa-solid fa-bars navbar-toggle-icon"></i>
-                            <span class="menu-title">MENU</span>
-                        </button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+        <title>American Honda Motor Co., Inc. - Official Site</title>
 
-                    </li>
-                    <li class="navbar-center">
-                        <a class="logo-link" href="#">
-                            <img src="./images/global-logo.svg" alt="logo">
-                        </a>
-                    </li>
-                    <ul class="navbar navbar-right">
-                        <li>
-                            <a class="menu-link" href="https://www.honda.com/about">
-                                <span class="menu-title">About Us</span>
-                            </a>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-search" data-bs-toggle="collapse" href="#searchBar" role="button" aria-expanded="false" aria-controls="searchBar">
-                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="./css/hondaStyle.css"/>
+    </head>
+    <body>
+        <header>
+            <main class="header-container">
+                <div class="menu-container">
+
+                    <ul class="navbar-container">
+                        <li class="navbar-left">
+                            <button type="button" class="btn btn-menu">
+                                <i class="fa-solid fa-bars navbar-toggle-icon"></i>
+                                <span class="menu-title">MENU</span>
                             </button>
                         </li>
-                        <!-- <div class="search-bar collapse"></div> -->
+                        <li class="navbar-center">
+                            <a class="logo-link" href="#">
+                                <img src="./images/global-logo.svg" alt="logo">
+                            </a>
+                        </li>
+                        <ul class="navbar navbar-right">
+                            <li>
+                                <a class="menu-link" href="https://www.honda.com/about">
+                                    <span class="menu-title">About Us</span>
+                                </a>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-search" data-bs-toggle="collapse" href="#searchBar" role="button" aria-expanded="false" aria-controls="searchBar">
+                                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                </button>
+                            </li>
+                        </ul>
                     </ul>
-                </ul>
-                <div class="search-bar collapse" id="searchBar">
-                    <form class="search-form" method="get" autocomplete="off" action="search">
-                        <span class="searchInput-span">
-                            <input class="search-input" type="type" id="search" placeholder="Type here...">
-                        </span>
-                        <button class="search-btn" type="submit">
-                            <span class="search-btn-span">
-                                SEARCH
-                                <i class="fa-solid fa-greater-than"></i>
+                    <div class="search-bar collapse" id="searchBar">
+                        <form class="search-form" method="get" autocomplete="off" action="search">
+                            <span class="searchInput-span">
+                                <input class="search-input" type="type" id="search" placeholder="Type here...">
                             </span>
-                        </button>
-                    </form>
+                            <button class="search-btn" type="submit">
+                                <span class="search-btn-span">
+                                    SEARCH
+                                    <i class="fa-solid fa-greater-than"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
+            </main>
+        </header>
+        <section class="carousel">
+            <main class="carousel-main">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a class="carousel-link" href="https://hondawallofdreams.com/">
+                                <img src="./images/carousel/Honda_Homepage_Hero_Wall_of_Dreams_Desktop_1600x650px.avif" class="d-block w-100" alt="...">
+                            </a>
+                        </div>
+                        <div class="carousel-item" href="https://automobiles.honda.com/future-cars/prologue">
+                            <a class="carousel-link" href="https://automobiles.honda.com/future-cars/prologue">
+                                <img src="./images/carousel/Honda_Homepage_Hero_2024Prologue_Desktop_1600x650px.avif" class="d-block w-100" alt="...">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a class="carousel-link" href="https://motocompacto.honda.com/">
+                                <img src="./images/carousel/Honda_Homepage_Hero_Motocompacto_Desktop_1600x650px_v2.avif" class="d-block w-100" alt="...">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a class="carousel-link" href="https://www.acura.com/future-vehicles/zdx-type-s">
+                                <img src="./images/carousel/Honda_Homepage_Hero_ZDX_Desktop_1600x650px.avif" class="d-block w-100" alt="...">
+                            </a>
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                    <!-- <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="btn active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="btn" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="btn" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" class="btn" aria-label="Slide 4"></button>
+                    </div> -->
+                </div>
+            </main>
+        </section>
+        <section class="indicators">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="btn-indicator btn active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="btn" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="btn" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" class="btn" aria-label="Slide 4"></button>
             </div>
-        </main>
-    </header>
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
-        crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-</body>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
