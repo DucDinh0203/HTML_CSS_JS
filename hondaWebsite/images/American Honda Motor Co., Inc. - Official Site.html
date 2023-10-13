@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://127.0.0.1:5500/hondapage.html -->
+<html lang="en"><script>
+    window[Symbol.for('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')] = new (class PostClient {
+    constructor(name, destination) {
+        this.name = name;
+        this.destination = destination;
+        this.serverListeners = {};
+        this.bgRequestsListeners = {};
+        this.bgEventsListeners = {};
+        window.addEventListener('message', (message) => {
+            const data = message.data;
+            const isNotForMe = !(data.destination && data.destination === this.name);
+            const hasNotEventProp = !data.event;
+            if (isNotForMe || hasNotEventProp) {
+                return;
+            }
+            if (data.event === 'MARIO_POST_SERVER__BG_RESPONSE') {
+                const response = data.args;
+                if (this.hasBgRequestListener(response.requestId)) {
+                    try {
+                        this.bgRequestsListeners[response.requestId](response.response);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                    delete this.bgRequestsListeners[response.requestId];
+                }
+            }
+            else if (data.event === 'MARIO_POST_SERVER__BG_EVENT') {
+                const response = data.args;
+                if (this.hasBgEventListener(response.event)) {
+                    try {
+                        this.bgEventsListeners[data.id](response.payload);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+            else if (this.hasServerListener(data.event)) {
+                try {
+                    this.serverListeners[data.event](data.args);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+            else {
+                console.log(`event not handled: ${data.event}`);
+            }
+        });
+    }
+    emitToServer(event, args) {
+        const id = this.generateUIID();
+        const message = {
+            args,
+            destination: this.destination,
+            event,
+            id,
+        };
+        window.postMessage(message, location.origin);
+        return id;
+    }
+    emitToBg(bgEventName, args) {
+        const requestId = this.generateUIID();
+        const request = { bgEventName, requestId, args };
+        this.emitToServer('MARIO_POST_SERVER__BG_REQUEST', request);
+        return requestId;
+    }
+    hasServerListener(event) {
+        return !!this.serverListeners[event];
+    }
+    hasBgRequestListener(requestId) {
+        return !!this.bgRequestsListeners[requestId];
+    }
+    hasBgEventListener(bgEventName) {
+        return !!this.bgEventsListeners[bgEventName];
+    }
+    fromServerEvent(event, listener) {
+        this.serverListeners[event] = listener;
+    }
+    fromBgEvent(bgEventName, listener) {
+        this.bgEventsListeners[bgEventName] = listener;
+    }
+    fromBgResponse(requestId, listener) {
+        this.bgRequestsListeners[requestId] = listener;
+    }
+    generateUIID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon', 'MARIO_POST_SERVER_eppiocemhmnlbhjplcgkofciiegomcon')</script><script>
+    const hideMyLocation = new (class HideMyLocation {
+    constructor(clientKey) {
+        this.clientKey = clientKey;
+        this.watchIDs = {};
+        this.client = window[Symbol.for(clientKey)];
+        const getCurrentPosition = navigator.geolocation.getCurrentPosition;
+        const watchPosition = navigator.geolocation.watchPosition;
+        const clearWatch = navigator.geolocation.clearWatch;
+        const self = this;
+        navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+            self.handle(getCurrentPosition, 'GET', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+            return self.handle(watchPosition, 'WATCH', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.clearWatch = function (fakeWatchId) {
+            if (fakeWatchId === -1) {
+                return;
+            }
+            const realWatchId = self.watchIDs[fakeWatchId];
+            delete self.watchIDs[fakeWatchId];
+            return clearWatch.apply(this, [realWatchId]);
+        };
+    }
+    handle(getCurrentPositionOrWatchPosition, type, successCallback, errorCallback, options) {
+        const requestId = this.client.emitToBg('HIDE_MY_LOCATION__GET_LOCATION');
+        let fakeWatchId = this.getRandomInt(0, 100000);
+        this.client.fromBgResponse(requestId, (response) => {
+            if (response.enabled) {
+                if (response.status === 'SUCCESS') {
+                    const position = this.map(response);
+                    successCallback(position);
+                }
+                else {
+                    const error = this.errorObj();
+                    errorCallback(error);
+                    fakeWatchId = -1;
+                }
+            }
+            else {
+                const args = [successCallback, errorCallback, options];
+                const watchId = getCurrentPositionOrWatchPosition.apply(navigator.geolocation, args);
+                if (type === 'WATCH') {
+                    this.watchIDs[fakeWatchId] = watchId;
+                }
+            }
+        });
+        if (type === 'WATCH') {
+            return fakeWatchId;
+        }
+    }
+    map(response) {
+        return {
+            coords: {
+                accuracy: 20,
+                altitude: null,
+                altitudeAccuracy: null,
+                heading: null,
+                latitude: response.latitude,
+                longitude: response.longitude,
+                speed: null,
+            },
+            timestamp: Date.now(),
+        };
+    }
+    errorObj() {
+        return {
+            code: 1,
+            message: 'User denied Geolocation',
+        };
+    }
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')
+  </script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./American Honda Motor Co., Inc. - Official Site_files/all.min.css">
+        <title>American Honda Motor Co., Inc. - Official Site</title>
+
+        <link href="./American Honda Motor Co., Inc. - Official Site_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="./American Honda Motor Co., Inc. - Official Site_files/hondaStyle.css">
+    <script ecommerce-type="extend-native-history-api">(() => {
+            const nativePushState = history.pushState;
+            const nativeReplaceState = history.replaceState;
+            const nativeBack = history.back;
+            const nativeForward = history.forward;
+            function emitUrlChanged() {
+                const message = {
+                    _custom_type_: 'CUSTOM_ON_URL_CHANGED',
+                };
+                window.postMessage(message);
+            }
+            history.pushState = function () {
+                nativePushState.apply(history, arguments);
+                emitUrlChanged();
+            };
+            history.replaceState = function () {
+                nativeReplaceState.apply(history, arguments);
+                emitUrlChanged();
+            };
+            history.back = function () {
+                nativeBack.apply(history, arguments);
+                emitUrlChanged();
+            };
+            history.forward = function () {
+                nativeForward.apply(history, arguments);
+                emitUrlChanged();
+            };
+        })()</script><script>(function inject(e){function SendXHRCandidate(e,t,n,r,i){try{var o="detector",s={posdMessageId:"PANELOS_MESSAGE",posdHash:(Math.random().toString(36).substring(2,15)+Math.random().toString(36).substring(2,15)+Math.random().toString(36).substring(2,15)).substring(0,22),type:"VIDEO_XHR_CANDIDATE",from:o,to:o.substring(0,6),content:{requestMethod:e,url:t,type:n,content:r}};i&&i[0]&&i[0].length&&(s.content.encodedPostBody=i[0]),window.postMessage(s,"*")}catch(e){}}var t=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(){this.requestMethod=arguments[0],t.apply(this,arguments)};var n=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.send=function(){var t=Object.assign(arguments,{}),r=this.onreadystatechange;return this.onreadystatechange=function(){if(4!==this.readyState||function isFrameInBlackList(t){return e.some((function(e){return t.includes(e)}))}(this.responseURL)||setTimeout(SendXHRCandidate(this.requestMethod,this.responseURL,this.getResponseHeader("content-type"),this.response,t),0),r)return r.apply(this,arguments)},n.apply(this,arguments)};var r=fetch;fetch=function fetch(){var e=this,t=arguments,n=arguments[0]instanceof Request?arguments[0].url:arguments[0],i=arguments[0]instanceof Request?arguments[0].method:"GET";return new Promise((function(o,s){r.apply(e,t).then((function(e){if(e.body instanceof ReadableStream){var t=e.json;e.json=function(){var r=arguments,o=this;return new Promise((function(s,a){t.apply(o,r).then((function(t){setTimeout(SendXHRCandidate(i,n,e.headers.get("content-type"),JSON.stringify(t)),0),s(t)})).catch((function(e){a(e)}))}))};var r=e.text;e.text=function(){var t=arguments,o=this;return new Promise((function(s,a){r.apply(o,t).then((function(t){setTimeout(SendXHRCandidate(i,n,e.headers.get("content-type"),t),0),s(t)})).catch((function(e){a(e)}))}))}}o.apply(this,arguments)})).catch((function(){s.apply(this,arguments)}))}))}})(["facebook.com/","twitter.com/","youtube-nocookie.com/embed/","//vk.com/","//www.vk.com/","//linkedin.com/","//www.linkedin.com/","//instagram.com/","//www.instagram.com/","//www.google.com/recaptcha/api2/","//hangouts.google.com/webchat/","//www.google.com/calendar/","//www.google.com/maps/embed","spotify.com/","soundcloud.com/","//player.vimeo.com/","//disqus.com/","//tgwidget.com/","//js.driftt.com/","friends2follow.com","/widget","login","//video.bigmir.net/","blogger.com","//smartlock.google.com/","//keep.google.com/","/web.tolstoycomments.com/","moz-extension://","chrome-extension://","/auth/","//analytics.google.com/","adclarity.com","paddle.com/checkout","hcaptcha.com","recaptcha.net","2captcha.com","accounts.google.com","www.google.com/shopping/customerreviews","buy.tinypass.com","gstatic.com","secureir.ebaystatic.com","docs.google.com","contacts.google.com","github.com","mail.google.com","chat.google.com","audio.xpleer.com","keepa.com"]);</script></head>
+    <body bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIn0sInZlcnNpb24iOiIxLjkuMTIiLCJzY29yZSI6MTA5MTJ9XQ==">
+        <header>
+            <main class="header-container">
+                <div class="menu-container" bis_skin_checked="1">
+
+                    <ul class="navbar-container">
+                        <li class="navbar-left">
+                            <button type="button" class="btn btn-menu">
+                                <i class="fa-solid fa-bars navbar-toggle-icon"></i>
+                                <span class="menu-title">MENU</span>
+                            </button>
+                        </li>
+                        <li class="navbar-center">
+                            <a class="logo-link" href="http://127.0.0.1:5500/hondapage.html#">
+                                <img src="./American Honda Motor Co., Inc. - Official Site_files/global-logo.svg" alt="logo">
+                            </a>
+                        </li>
+                        <ul class="navbar navbar-right">
+                            <li>
+                                <a class="menu-link" href="https://www.honda.com/about">
+                                    <span class="menu-title">About Us</span>
+                                </a>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-search" data-bs-toggle="collapse" href="#searchBar" role="button" aria-expanded="false" aria-controls="searchBar">
+                                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </ul>
+                    <div class="search-bar collapse" id="searchBar" bis_skin_checked="1">
+                        <form class="search-form" method="get" autocomplete="off" action="http://127.0.0.1:5500/search">
+                            <span class="searchInput-span">
+                                <input class="search-input" type="type" id="search" placeholder="Type here...">
+                            </span>
+                            <button class="search-btn" type="submit">
+                                <span class="search-btn-span">
+                                    SEARCH
+                                    <i class="fa-solid fa-greater-than"></i>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </header>
+        <section class="carousel">
+            <main class="carousel-main">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" bis_skin_checked="1">
+                    <div class="carousel-inner" bis_skin_checked="1">
+                        <div class="carousel-item" bis_skin_checked="1">
+                            <a class="carousel-link" href="https://hondawallofdreams.com/" bis_size="{&quot;x&quot;:0,&quot;y&quot;:-63,&quot;w&quot;:852,&quot;h&quot;:346,&quot;abs_x&quot;:0,&quot;abs_y&quot;:-63}">
+                                <img src="./American Honda Motor Co., Inc. - Official Site_files/Honda_Homepage_Hero_Wall_of_Dreams_Desktop_1600x650px.avif" class="d-block w-100" alt="..." bis_size="{&quot;x&quot;:0,&quot;y&quot;:-63,&quot;w&quot;:852,&quot;h&quot;:346,&quot;abs_x&quot;:0,&quot;abs_y&quot;:-63}" bis_id="bn_ev6pol7rgj7og9gqt17afy">
+                            </a>
+                        </div>
+                        <div class="carousel-item active" href="https://automobiles.honda.com/future-cars/prologue" bis_skin_checked="1">
+                            <a class="carousel-link" href="https://automobiles.honda.com/future-cars/prologue" bis_size="{&quot;x&quot;:0,&quot;y&quot;:-63,&quot;w&quot;:852,&quot;h&quot;:346,&quot;abs_x&quot;:0,&quot;abs_y&quot;:-63}">
+                                <img src="./American Honda Motor Co., Inc. - Official Site_files/Honda_Homepage_Hero_2024Prologue_Desktop_1600x650px.avif" class="d-block w-100" alt="..." bis_size="{&quot;x&quot;:0,&quot;y&quot;:-63,&quot;w&quot;:852,&quot;h&quot;:346,&quot;abs_x&quot;:0,&quot;abs_y&quot;:-63}" bis_id="bn_lxj0s2xgu2eteemfbzg3pe">
+                            </a>
+                        </div>
+                        <div class="carousel-item" bis_skin_checked="1">
+                            <a class="carousel-link" href="https://motocompacto.honda.com/" bis_size="{&quot;x&quot;:666,&quot;y&quot;:-596,&quot;w&quot;:2132,&quot;h&quot;:866,&quot;abs_x&quot;:666,&quot;abs_y&quot;:-596}">
+                                <img src="./American Honda Motor Co., Inc. - Official Site_files/Honda_Homepage_Hero_Motocompacto_Desktop_1600x650px_v2.avif" class="d-block w-100" alt="..." bis_size="{&quot;x&quot;:666,&quot;y&quot;:-596,&quot;w&quot;:2132,&quot;h&quot;:866,&quot;abs_x&quot;:666,&quot;abs_y&quot;:-596}" bis_id="bn_8kebf66voz9w33peiv4z59">
+                            </a>
+                        </div>
+                        <div class="carousel-item" bis_skin_checked="1">
+                            <a class="carousel-link" href="https://www.acura.com/future-vehicles/zdx-type-s" bis_size="{&quot;x&quot;:1267,&quot;y&quot;:-564,&quot;w&quot;:2132,&quot;h&quot;:866,&quot;abs_x&quot;:1267,&quot;abs_y&quot;:-564}">
+                                <img src="./American Honda Motor Co., Inc. - Official Site_files/Honda_Homepage_Hero_ZDX_Desktop_1600x650px.avif" class="d-block w-100" alt="..." bis_size="{&quot;x&quot;:1267,&quot;y&quot;:-564,&quot;w&quot;:2132,&quot;h&quot;:866,&quot;abs_x&quot;:1267,&quot;abs_y&quot;:-564}" bis_id="bn_7d38pveumzhckqte3jses8">
+                            </a>
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                    <div class="carousel-indicators" bis_skin_checked="1">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="btn" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="btn active" aria-label="Slide 2" aria-current="true"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="btn" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" class="btn" aria-label="Slide 4"></button>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <section class="classify">
+            <main class="classify-main">
+                <div class="classify-container" bis_skin_checked="1">
+                    <div class="list" bis_skin_checked="1">
+                        <div class="item hondaAutos" bis_skin_checked="1">
+                            <a href="https://automobiles.honda.com/" target="_blank">
+                                <div class="item-content bg-blue text-white" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_autos.webp">
+                                    <p class="item-title">Honda Autos</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item carImg" bis_skin_checked="1">
+                            <a href="https://automobiles.honda.com/" target="_blank">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_1.avif">
+                            </a>
+                        </div>
+
+                        <div class="item powersports" bis_skin_checked="1">
+                            <a href="https://powersports.honda.com/" target="_blank">
+                                <div class="item-content bg-red text-white" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_powersports.webp">
+                                    <p class="item-title text-white">Motorcycles, ATVs, Scooter, SxS</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item motoImg" bis_skin_checked="1">
+                            <a href="https://powersports.honda.com/" target="_blank" bis_size="{&quot;x&quot;:3382,&quot;y&quot;:593,&quot;w&quot;:1600,&quot;h&quot;:22,&quot;abs_x&quot;:3382,&quot;abs_y&quot;:593}">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_2.jpg" bis_size="{&quot;x&quot;:3382,&quot;y&quot;:336,&quot;w&quot;:1600,&quot;h&quot;:540,&quot;abs_x&quot;:3382,&quot;abs_y&quot;:336}" bis_id="bn_rjnvv10f6ffqv1vba2ccm1">
+                            </a>
+                        </div>
+
+                        <div class="item equipment" bis_skin_checked="1">
+                            <a href="https://powerequipment.honda.com/" target="_blank">
+                                <div class="item-content bg-white text-black" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_corporate_red.webp">
+                                    <p class="item-title">Generators, Mowers &amp; Power Equipment</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item acuraImg" bis_skin_checked="1">
+                            <a href="https://www.acura.com/" target="_blank" bis_size="{&quot;x&quot;:6182,&quot;y&quot;:721,&quot;w&quot;:1600,&quot;h&quot;:22,&quot;abs_x&quot;:6182,&quot;abs_y&quot;:721}">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_3.webp" bis_size="{&quot;x&quot;:6182,&quot;y&quot;:336,&quot;w&quot;:1600,&quot;h&quot;:796,&quot;abs_x&quot;:6182,&quot;abs_y&quot;:336}" bis_id="bn_e67qsqgg9xejiaaby9ifyt">
+                            </a>
+                        </div>
+
+                        <div class="item acuraAutos" bis_skin_checked="1">
+                            <a href="https://www.acura.com/" target="_blank">
+                                <div class="item-content bg-black text-white" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_acura.webp">
+                                    <p class="item-title text-white">Acura Autos</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item equipImg" bis_skin_checked="1">
+                            <a href="https://powerequipment.honda.com/" target="_blank">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_4.jpg">
+                            </a>
+                        </div>
+
+                        <div class="item hondaJet" bis_skin_checked="1">
+                            <a href="https://www.hondajet.com/" target="_blank">
+                                <div class="item-content bg-red text-white" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_jet.webp">
+                                    <p class="item-title text-white">Honda Aircraft Company</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item jetImg" bis_skin_checked="1">
+                            <a href="https://www.hondajet.com/" target="_blank" bis_size="{&quot;x&quot;:3382,&quot;y&quot;:2325,&quot;w&quot;:1600,&quot;h&quot;:22,&quot;abs_x&quot;:3382,&quot;abs_y&quot;:2325}">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_5.jpg" bis_size="{&quot;x&quot;:3382,&quot;y&quot;:1936,&quot;w&quot;:1600,&quot;h&quot;:803,&quot;abs_x&quot;:3382,&quot;abs_y&quot;:1936}" bis_id="bn_ke9hivh379ka7rrrdxlkkq">
+                            </a>
+                        </div>
+
+                        <div class="item raceImg" bis_skin_checked="1">
+                            <a href="https://hpd.honda.com/" target="_blank" bis_size="{&quot;x&quot;:4982,&quot;y&quot;:2284,&quot;w&quot;:1200,&quot;h&quot;:22,&quot;abs_x&quot;:4982,&quot;abs_y&quot;:2284}">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_6.jpg" bis_size="{&quot;x&quot;:4982,&quot;y&quot;:1936,&quot;w&quot;:1200,&quot;h&quot;:721,&quot;abs_x&quot;:4982,&quot;abs_y&quot;:1936}" bis_id="bn_x16b0esp84n6ybemwz7jhj">
+                            </a>
+                        </div>
+
+                        <div class="item emgines" bis_skin_checked="1">
+                            <a href="https://engines.honda.com/" target="_blank">
+                                <div class="item-content bg-red text-white" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_corporate_white.webp">
+                                    <p class="item-title text-white">General Purpose Engines</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item enginesImg" bis_skin_checked="1">
+                            <a href="https://engines.honda.com/" target="_blank">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_7.jpg">
+                            </a>
+                        </div>
+
+                        <div class="item marineImg" bis_skin_checked="1">
+                            <a href="https://marine.honda.com/" target="_blank" bis_size="{&quot;x&quot;:1600,&quot;y&quot;:3925,&quot;w&quot;:1600,&quot;h&quot;:22,&quot;abs_x&quot;:1600,&quot;abs_y&quot;:3925}">
+                                <img class="picture" src="./American Honda Motor Co., Inc. - Official Site_files/classify_8.webp" bis_size="{&quot;x&quot;:1600,&quot;y&quot;:3536,&quot;w&quot;:1600,&quot;h&quot;:803,&quot;abs_x&quot;:1600,&quot;abs_y&quot;:3536}" bis_id="bn_j8ylzn9l7bfbb8o8blnfqc">
+                            </a>
+                        </div>
+
+                        <div class="item marine" bis_skin_checked="1">
+                            <a href="https://marine.honda.com/" target="_blank">
+                                <div class="item-content bg-white text-black" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_marine.png">
+                                    <p class="item-title">Outboard Motors</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="item racing" bis_skin_checked="1">
+                            <a href="https://hpd.honda.com/" target="_blank">
+                                <div class="item-content bg-red text-white" bis_skin_checked="1">
+                                    <img class="logo" src="./American Honda Motor Co., Inc. - Official Site_files/logo_honda_racing.webp">
+                                    <p class="item-title">Auto Racing</p>
+                                    <span class="classify-text">GO</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+        <script src="./American Honda Motor Co., Inc. - Official Site_files/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="./American Honda Motor Co., Inc. - Official Site_files/script.js"></script>
+    <!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
