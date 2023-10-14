@@ -37,10 +37,11 @@ body{
     display: grid;
     row-gap: 30px;
     column-gap: 30px;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas: 
     "order client-info"
     "total total";
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
 }
 
 .card{
