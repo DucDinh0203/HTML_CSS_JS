@@ -430,33 +430,65 @@ ul, li{
 }
 
 .collection-container{
-    padding: 0px 5%;
-    position: relative;
+    padding: 0px 5% 70px 5%;
+    /* position: relative;
     width: 100%;
-    height: 100%;
+    height: 100%; */
 }
 
 .collection-container .list{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* grid-template-rows: 1fr; */
-    grid-template-areas: 
-    "hall report industry";
-    width: 100%;
-}
-
-.collection-container .list .box .box-link{
-    position: relative;
-    width: 100%;
-    height: 100%;
+    grid-template-rows: 1fr 1fr;
 }
 
 .collection-container .list .box{
     position: relative;
+    background-color: #f9f9f9;
 }
 
 .collection-container .list .box img{
     display: block;
     width: 100%;
     height: 100%;
+}
+
+.collection-container .list .hallImg{
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+.collection-container .list .reportImg{
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+.collection-container .list .industryImg{
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.collection-container .list .box-text{
+    font-size: 14px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.box-text .box-header{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.box-text .box-p{
+    font-size: 80%;
+    margin: 0 0 10px 0;
+}
+
+.box-text .box-footer .box-footer-link{
+    text-decoration:  none;
+    font-size: 15px;
+    font-weight: bold;
+    color: #337ab7;
+
 }
