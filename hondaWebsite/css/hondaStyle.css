@@ -150,20 +150,18 @@ ul, li{
 }
 
 
-.classify-container{
+/* .classify-container{
     padding-bottom: 50px;
-}
+} */
 
 .classify .classify-main .classify-container .list{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    /* grid-template-rows: 1fr 1fr 1fr 1fr; */
     grid-template-areas: 
     "hondaAutos  carImg      carImg     powersports  motoImg   motoImg"
     "equipment   carImg      carImg     acuraImg     acuraImg  acuraAutos"
     "equipImg    hondaJet    jetImg     jetImg       raceImg   raceImg"
     "engines     enginesImg  marineImg  marineImg    marine    racing";
-    height: 100%;
 }
 
 .classify-container .list .item{
@@ -224,9 +222,9 @@ ul, li{
     grid-row: 3/4; 
 }
 
-.classify-container .list .hondaJet{
+/* .classify-container .list .hondaJet{
     grid-column: 2/3;
-}
+} */
 
 .classify-container .list .jetImg{
     grid-column: 3/5;
@@ -271,6 +269,7 @@ ul, li{
     text-decoration: underline;
     display: block;
     padding-top: 5%;
+    padding-bottom: 15%;
     font-size: 1em;
     
 }
@@ -297,5 +296,12 @@ ul, li{
 
 .bg-black{
     background-color: #000000;
+}
+
+.company-header h2{
+    padding: 35px 0px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
 }
 
