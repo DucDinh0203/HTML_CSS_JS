@@ -300,8 +300,71 @@ ul, li{
 
 .company-header h2{
     padding: 35px 0px;
+    margin: 0;
     font-size: 20px;
     font-weight: 700;
     text-align: center;
 }
 
+.company-container .list{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "mobility environment"
+    "community safety";
+}
+
+.company-container .list .item{
+    position: relative;
+}
+
+.company-container .list .item .clip video{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.company-container .list .item a{
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.company-container .list .item .text-header{
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: .1em;
+    margin: 0;
+    padding: 0;
+}
+
+.company-container .list .item .item-content .text-body{
+    position: absolute;
+    bottom: 0;
+    padding: 20px 30px;
+    text-align: center;
+    align-items: center;
+}
+
+.item-content .text-body .text-content{
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.item-content .text-body .text-footer{
+    padding: 6px 0;
+    margin: 0;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+}
