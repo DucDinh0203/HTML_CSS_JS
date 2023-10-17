@@ -178,14 +178,20 @@ ul, li{
     margin-top: 15%;
     width: 70%;
 }
+.classify-container .list .item .right{
+    position: relative;
+}
 
-/* .classify-container .list .hondaAutos{
-    width: 100%;
-    height: 100%;
-    display: block;
-    grid-column: 1/2;
-    grid-row: 1/2;
-} */
+.classify-container .list .item .right::before{
+    width: 0;
+    border-bottom: 20px solid black;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
 
 .classify-container .list .carImg{
     grid-column: 2/4;
@@ -431,6 +437,7 @@ ul, li{
 
 .collection-container{
     padding: 0px 5% 70px 5%;
+    background-color: #ffffff;
     /* position: relative;
     width: 100%;
     height: 100%; */
@@ -453,6 +460,12 @@ ul, li{
     height: 100%;
 }
 
+.collection-container .list .box img:hover{
+    transform: scale(110%);
+    transition: transform 0.8s ease-in-out;
+    overflow: hidden;
+}
+
 .collection-container .list .hallImg{
     grid-column: 1/2;
     grid-row: 1/2;
@@ -472,6 +485,21 @@ ul, li{
     font-size: 14px;
     padding: 40px 20px;
     text-align: center;
+    position: relative;
+    background-color: #f9f9f9;
+}
+
+.collection-container .list .box-text::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-bottom: 20px solid #f9f9f9;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
 }
 
 .box-text .box-header{
@@ -490,5 +518,5 @@ ul, li{
     font-size: 15px;
     font-weight: bold;
     color: #337ab7;
-
 }
+
