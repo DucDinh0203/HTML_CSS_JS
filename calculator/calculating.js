@@ -1,6 +1,6 @@
 let input = '0';
 let runningTotal = 0;
-let previousOperator;
+let operatorValue;
 screen = document.querySelector('.screen');
 
 function buttonClick(value){
@@ -36,9 +36,9 @@ function handleNumber(value){
 
 function handleMath(value){
   if (input === '0') {
-    // do nothing
     return;
   }
+  // showSelectedOperation(value);
 
   const intInput = parseInt(input);  // convert a string to a number
   if (runningTotal === 0) {
@@ -46,25 +46,32 @@ function handleMath(value){
   } else {
     flushOperation(intInput);
   }
-  previousOperator = value;
+  operatorValue = value;
   input = '0';
-  // console.log(runningTotal);
+  console.log(runningTotal);
+}
+
+function mathOperating(operation){
+  showSelectedOperation(operation);
+  console.log("operation: " + operation);
+  let floatInput = parseFloat(input); // convert a string to a float number
+
 }
 
 function flushOperation(intInput){
-  if (previousOperator === '+') {
+  if (operatorValue === '+') {
     runningTotal += intInput;
-  } else if (previousOperator === '-') {
+  } else if (operatorValue === '-') {
     runningTotal -= intInput;
-  } else if (previousOperator === '×') {
+  } else if (operatorValue === '×') {
     runningTotal *= intInput;
   } else {
     runningTotal /= intInput;
   }
-  console.log(previousOperator);
+  console.log(operatorValue);
 }
 
-function setOperation(operation){
+function showSelectedOperation(operation){
   var elements = document.getElementsByClassName("operator");
 
   for(var i = 0; i < elements.length; i++) {
@@ -111,21 +118,26 @@ function plus_minus(key){
   }
 }
 
+function equalSign(value){
+
+}
+
 function handleSymbol(symbol){
   switch (symbol ){
     case 'C':
       input = '0';
-      previousOperator = null;
+      operatorValue = null;
       break;
     case '=':
-      if (previousOperator === null) {
+      if (operatorValue === null) {
         // need do numbers to do math
         return;
       }
       flushOperation(parseInt(input));
-      previousOperator = null;
+      operatorValue = null;
       input = "" + runningTotal;
       runningTotal = 0;
+      showSelectedOperation(operatorValue);
       break;
     case '←':
       backSpace();
@@ -141,7 +153,7 @@ function handleSymbol(symbol){
     case '×':
     case '÷':
       // handleMath(symbol);
-      setOperation(symbol);
+      mathOperating(symbol);
       break;
     case '.':
       decimalValue(symbol);
