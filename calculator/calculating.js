@@ -27,11 +27,10 @@ function handleNumber(value){
     else {
       input = input.substring(0, input.length-1) + value;
     }
-  }
+  } 
   else {
     input += value;
   }
-  // console.log(input);
 };
 
 function handleMath(value){
@@ -40,35 +39,27 @@ function handleMath(value){
   }
   // showSelectedOperation(value);
 
-  const intInput = parseInt(input);  // convert a string to a number
+  const CurrInput = parseFloat(input);  // convert a string to a number
   if (runningTotal === 0) {
-    runningTotal = intInput;
+    runningTotal = CurrInput;
   } else {
-    flushOperation(intInput);
+    flushOperation(CurrInput);
   }
   operatorValue = value;
   input = '0';
   console.log(runningTotal);
 }
 
-function mathOperating(operation){
-  showSelectedOperation(operation);
-  console.log("operation: " + operation);
-  let floatInput = parseFloat(input); // convert a string to a float number
-
-}
-
-function flushOperation(intInput){
+function flushOperation(currentNumber){
   if (operatorValue === '+') {
-    runningTotal += intInput;
+    runningTotal += currentNumber;
   } else if (operatorValue === '-') {
-    runningTotal -= intInput;
+    runningTotal -= currentNumber;
   } else if (operatorValue === '×') {
-    runningTotal *= intInput;
+    runningTotal *= currentNumber;
   } else {
-    runningTotal /= intInput;
+    runningTotal /= currentNumber;
   }
-  console.log(operatorValue);
 }
 
 function showSelectedOperation(operation){
@@ -98,9 +89,10 @@ function backSpace(){
 }
 
 function decimalValue(symbol){
-  if (input.length == 1 && input === '0') {
+  if (input.length !== 0 && input === '0') {
     input += symbol;
   } else if (input.includes(symbol) && symbol === symbol) {
+    // if there was already a decimal dot, do nothing
     return;
   } else {
     input += symbol;
@@ -118,8 +110,20 @@ function plus_minus(key){
   }
 }
 
-function equalSign(value){
+function percentage() {
+  input = input/100;
+}
 
+function equalSign(value){
+  if (operatorValue === null) {
+    // need do numbers to do math
+    return;
+  }
+  flushOperation(parseFloat(input));
+  input = "" + runningTotal;
+  runningTotal = 0;
+  operatorValue = null;
+  showSelectedOperation(operatorValue);
 }
 
 function handleSymbol(symbol){
@@ -127,23 +131,18 @@ function handleSymbol(symbol){
     case 'C':
       input = '0';
       operatorValue = null;
-      break;
-    case '=':
-      if (operatorValue === null) {
-        // need do numbers to do math
-        return;
-      }
-      flushOperation(parseInt(input));
-      operatorValue = null;
-      input = "" + runningTotal;
       runningTotal = 0;
       showSelectedOperation(operatorValue);
+      break;
+    case '=':
+      equalSign(symbol);
       break;
     case '←':
       backSpace();
       break;
     case '%':
       console.log("percentage");
+      percentage();
       break;
     case '+/-':
       plus_minus('-');
@@ -152,8 +151,10 @@ function handleSymbol(symbol){
     case '-':
     case '×':
     case '÷':
-      // handleMath(symbol);
-      mathOperating(symbol);
+      handleMath(symbol);
+      // mathOperating(symbol);
+      showSelectedOperation(symbol);
+      console.log('symbol: ' + symbol);
       break;
     case '.':
       decimalValue(symbol);
