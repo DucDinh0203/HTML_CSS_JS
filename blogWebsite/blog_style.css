@@ -216,12 +216,17 @@ nav [class*="fa-"]:hover {
     padding: 1rem;
 }
 
-@media (min-width: 550px) {
+@media (min-width: 800px) {
     article {
         /* grid can overlap items, flexbox can not */
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         gap: 1rem;
+    }
+
+    #projects {
+        max-width: 1200px;
+        margin: 0 auto;
     }
     
     #projects img {
