@@ -1,0 +1,43 @@
+* { 
+    margin:0;
+    padding: 0;
+    font-family: 'Oxygen', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    margin: 4rem auto;
+}
+
+header {
+    width: 50%;
+    margin: 1rem auto;
+}
+
+header h1 {
+    margin: 1rem auto;
+    font-weight: bolder;
+}
+
+header h2 {
+    margin: 1rem auto;
+}
+
+#board {
+    max-width: 50%;
+    margin: 1rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    background-color: teal;
+}
+
+.square {
+    min-height: 1.3em;
+    text-align: center;
+    background-color: white;
+    font-size: 5rem;
+    color: black;
+}
